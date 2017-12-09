@@ -1,0 +1,33 @@
+version: '3'
+services:
+  mysql:
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    - MYSQL_DATABASE=poyo
+    - MYSQL_PASSWORD=poyo
+    - MYSQL_USER=poyo
+    image: mysql:5.7.19
+    volumes:
+    - mysql-store:/var/lib/mysql
+  poyo:
+    command: yarn tsc -watch
+    depends_on:
+    - mysql
+    environment:
+    - MYSQL_DATABASE=poyo
+    - MYSQL_HOST=mysql
+    - MYSQL_PASSWORD=poyo
+    - MYSQL_PORT=3306
+    - MYSQL_USER=poyo
+    - NODE_ENV=development
+    image: node:8.9.0
+    ports:
+    - 3000:3000
+    - 3001:3001
+    volumes:
+    - .:/workdir
+    working_dir: /workdir
+volumes:
+  mysql-store:
+  node-modules-store:

@@ -1,0 +1,14 @@
+{
+  "name": "typeorm-poyo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^8.0.57",
+    "typescript": "2.5"
+  },
+  "dependencies": {
+    "mysql": "^2.15.0",
+    "typeorm": "^0.1.7"
+  }
+}
