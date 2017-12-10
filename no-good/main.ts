@@ -19,6 +19,8 @@ async function main() {
     console.log('connected mysql');
     const repo = conn.getRepository(OkWoman);
     await repo.save(noOkWomanToInsert);
+    // await repo.saveInsertable({ name: 'sosogu' });
+    // - Runtime error: SQL クエリの実行に失敗する。
     const record = await repo.findOne({ name: 'popuko' });
     // record は OkWoman | undefined の型を持つと解釈されている
     if (typeof record !== 'undefined') {
@@ -37,8 +39,8 @@ async function main() {
         // - Compile error: Operator '===' cannot be applied to types 'boolean' and '0'.
         // if (record.birthday === '2017-12-09') { console.log(`Her birthday is ${record.birthday}`) }
         // - Compile error: Operator '===' cannot be applied to types 'Date' and 'string'.
-        console.log(`Her birtday is ${record.birthday.toISOString()}`);
-        // TypeError: record.birthday.toISOString is not a function
+        // console.log(`Her birtday is ${record.birthday.toISOString()}`);
+        // - TypeError: record.birthday.toISOString is not a function
     }
 }
 
