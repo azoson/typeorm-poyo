@@ -1,13 +1,8 @@
 import { createConnection } from "typeorm";
 import { config } from "./typeorm.config";
-import { OkWoman } from "./model";
+import { InsertableOkWoman, OkWomanRepository } from "./repository";
 
-type InsertableColumns =
-    | 'name'
-    | 'age'
-    | 'birthday'
-    | 'ok'
-const noOkWomanToInsert: Pick<OkWoman, InsertableColumns> = {
+const noOkWomanToInsert: InsertableOkWoman = {
     name: 'pipimi',
     age: 18,
     birthday: new Date('2017/12/09'),
@@ -17,8 +12,10 @@ const noOkWomanToInsert: Pick<OkWoman, InsertableColumns> = {
 async function main() {
     const conn = await createConnection(config);
     console.log('connected mysql');
-    const repo = conn.getRepository(OkWoman);
-    await repo.save(noOkWomanToInsert);
+    const repo = conn.getCustomRepository(OkWomanRepository);
+    await repo.saveInsertable(noOkWomanToInsert);
+    // await repo.saveInsertable({ name: 'sosogu' });
+    // -- Compile error
     const record = await repo.findOne({ name: 'popuko' });
     // record は OkWoman | undefined の型を持つと解釈されている
     if (typeof record !== 'undefined') {
