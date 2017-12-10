@@ -10,5 +10,8 @@
   "dependencies": {
     "mysql": "^2.15.0",
     "typeorm": "^0.1.7"
+  },
+  "scripts": {
+    "start": "yarn && yarn tsc -p . --watch"
   }
 }

@@ -11,7 +11,7 @@ services:
     volumes:
     - mysql-store:/var/lib/mysql
   poyo:
-    command: yarn tsc -watch
+    command: yarn start
     depends_on:
     - mysql
     environment:
